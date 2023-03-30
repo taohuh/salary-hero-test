@@ -105,7 +105,13 @@ test.describe('OWASP juice shop page', () => {
   // })
 
   // 3. Click on the search button, search for apple, verify that 2 apple products show up and that banana product does not show up
-  // test('Verify that user able to search product by keyword successfully', async () => {
+  test('Verify that user able to search product by keyword successfully', async () => {
+    const keyword = 'Apple'
+    const notFoundKeyword = 'Banana'
 
-  // })
+    await searchProductListPage.searchProductByKeyword(keyword)
+    await searchProductListPage.verifySearchResultTitle(keyword)
+    await searchProductListPage.verifySearchProductResult(keyword)
+    await searchProductListPage.verifyNotExistProductInSearchResult(notFoundKeyword)
+  })
 })

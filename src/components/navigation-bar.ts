@@ -3,11 +3,14 @@ import { expect, Locator, Page } from '@playwright/test'
 export class NavigationBarComponent {
   readonly page: Page
   readonly buttonYourBasket: Locator
+  readonly inputSearchProduct: Locator
+  readonly iconSearch: Locator
 
   constructor(page: Page) {
     this.page = page
     this.buttonYourBasket = page.getByRole('button', { name: 'Show the shopping cart' })
-
+    this.inputSearchProduct = page.locator('#mat-input-0')
+    this.iconSearch = page.locator('.mat-search_icon-search')
   }
 
   async clickYourBasketButton() {
@@ -19,5 +22,13 @@ export class NavigationBarComponent {
     ])
 
     await expect(this.page).toHaveURL(url)
+  }
+
+  async searchProductByKeyword(keyword: string) {
+    await this.iconSearch.click()
+    await this.inputSearchProduct.clear()
+    await this.inputSearchProduct.fill(keyword)
+    await this.inputSearchProduct.press('Enter')
+    await expect(this.inputSearchProduct).toHaveValue(keyword)
   }
 }
