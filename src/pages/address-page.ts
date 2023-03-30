@@ -48,8 +48,7 @@ export class AddressPage {
   }
 
   async verifyAddNewAddressSuccessfully(address: TAddress) {
-    const regex = new RegExp(`The address at ${address.city} has been successfully added to your addresses.`, 'g')
-    this.snackbarComponent.verifySnackbarContent(regex)
+    await this.snackbarComponent.verifySnackbarContent(`The address at ${address.city} has been successfully added to your addresses.`)
   }
 
   async selectAddress(addressName: string) {

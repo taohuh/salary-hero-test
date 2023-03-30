@@ -20,19 +20,9 @@ export type TPaymentMethod = {
   expiredYear: string,
 }
 
-export type TProducts = Array<TProduct>
-
 export type TProduct = {
   name: string,
   price: number
-}
-
-export type TUser = {
-  username: string,
-  password: string,
-  addedProducts: TProduct[],
-  address: TAddress,
-  payment: TPaymentMethod,
 }
 
 export type TOrderSummary = {

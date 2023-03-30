@@ -1,5 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test'
 import { NavigationBarComponent } from '../components/navigation-bar'
+import { SnackbarComponent } from '../components/snackbar'
 
 export class SearchProductListPage {
   readonly page: Page
@@ -8,16 +9,29 @@ export class SearchProductListPage {
   readonly cartNotification: Locator
   readonly buttonAddToCart: Locator
   readonly searchValue: Locator
+  readonly snackbarComponent: SnackbarComponent
   readonly navigationBarComponent: NavigationBarComponent
 
   constructor(page: Page) {
     this.page = page
+    this.snackbarComponent = new SnackbarComponent(page)
     this.navigationBarComponent = new NavigationBarComponent(page)
     this.productCard = page.locator('.mat-card')
     this.productItemName = page.locator('.item-name')
     this.cartNotification = page.locator('.warn-notification')
     this.searchValue = page.locator('#searchValue')
     this.buttonAddToCart = page.getByRole('button', { name: 'Add to Basket' })
+  }
+
+  async openSearchProductPage() {
+    const url = process.env.OWASP_JUICE_SHOP_SEARCH_URL || ''
+
+    await Promise.all([
+      this.page.goto(url),
+      this.page.waitForURL(url)
+    ])
+
+    await expect(this.page).toHaveURL(url)
   }
 
   async clickAddProductToCart(productName: string) {
@@ -33,7 +47,7 @@ export class SearchProductListPage {
   }
 
   async verifyAddToCartSuccessfullySnackbar(productName: string) {
-    await expect(this.page.getByText(productName)).toBeVisible()
+    await this.snackbarComponent.verifySnackbarContent(`Placed ${productName} into basket.`)
   }
 
   async searchProductByKeyword(keyword: string) {

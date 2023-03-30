@@ -1,5 +1,5 @@
 import { expect, Locator, Page } from '@playwright/test'
-import { TAddress, TOrderSummary, TPaymentMethod, TProduct } from '../types'
+import { TAddress, TOrderSummary, TPaymentMethod } from '../types'
 
 export class OrderSummaryPage {
   readonly page: Page
@@ -9,7 +9,7 @@ export class OrderSummaryPage {
   readonly productPriceInCart: Locator
   readonly orderSummaryTotalPriceCell: Locator
   readonly orderSummaryPriceCell: Locator
-  readonly buttonPlaceYourOrder: Locator
+  readonly basketRow: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -19,7 +19,7 @@ export class OrderSummaryPage {
     this.productPriceInCart = page.locator('.mat-column-price >> visible = true')
     this.orderSummaryPriceCell = this.page.locator('.mat-cell.price')
     this.orderSummaryTotalPriceCell = this.page.locator('.mat-footer-cell.price')
-    this.buttonPlaceYourOrder = this.page.getByRole('button', { name: 'Complete your purchase' })
+    this.basketRow = this.page.locator('.mat-row.cdk-row.ng-star-inserted')
   }
 
   async verifySelectedAddress(address: TAddress) {
@@ -35,10 +35,14 @@ export class OrderSummaryPage {
     await expect(this.page.getByText(`Card Holder ${paymentMethod.name}`)).toBeVisible()
   }
 
-  async verifyYourBasketDetail(addedProduct: TProduct, totalProducts: string) {
-    expect(await this.productNameInCart.textContent()).toContain(addedProduct.name)
-    expect(await this.productQuantityInCart.textContent()).toContain(totalProducts.toString())
-    expect(await this.productPriceInCart.textContent()).toContain(addedProduct.price.toString())
+  async verifyYourBasketDetail(addedProducts) {
+    const totalBasketRow = await this.basketRow.count()
+
+    for (let index = 0; index < totalBasketRow; index++) {
+      expect(await this.productNameInCart.nth(index).textContent()).toContain(addedProducts[index].name)
+      expect(await this.productQuantityInCart.nth(index).textContent()).toContain(addedProducts[index].quantity.toString())
+      expect(await this.productPriceInCart.nth(index).textContent()).toContain(addedProducts[index].price.toString())
+    }
   }
 
   async verifyOrderSummary(orderSummary: TOrderSummary) {
@@ -50,9 +54,5 @@ export class OrderSummaryPage {
     expect(await orderSummaryRowDeliver.textContent()).toContain(orderSummary.delivery.toString())
     expect(await orderSummaryRowPromotion.textContent()).toContain(orderSummary.promotion.toString())
     expect(await this.orderSummaryTotalPriceCell.textContent()).toContain(orderSummary.totalPrice.toString())
-  }
-
-  async clickPlaceYourOrderButton() {
-    await this.buttonPlaceYourOrder.click()
   }
 }

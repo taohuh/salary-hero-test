@@ -1,20 +1,19 @@
-
 /**
- * Get total products in cart
+ * Get price of all product in cart
  * @param addedProducts
- * @returns total products in cart
+ * @returns price of all products in cart
  */
-export const getTotalProductsInCart = (addedProducts) => {
-  return addedProducts.length
+export const getPriceOfAllProductsInCart = (addedProducts) => {
+  return addedProducts.reduce((acc, product) => { return acc + product.price }, 0)
 }
 
 /**
- * Get price of product in cart
- * @param addedProducts
- * @returns price of products in cart
+ * Get price of product by item
+ * @param addedProduct
+ * @returns price of product by item
  */
-export const getPriceOfProductInCart = (addedProducts) => {
-  return addedProducts.reduce((acc, product) => { return acc + product.price }, 0)
+export const getPriceOfProductByItem = (addedProduct) => {
+  return addedProduct.price * addedProduct.quantity
 }
 
 /**

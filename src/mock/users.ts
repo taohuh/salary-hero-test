@@ -6,8 +6,14 @@ export const userA = {
   password: process.env.PASSWORD || '',
   addedProducts: [
     {
-      name: 'Apple Juice',
+      name: 'Apple Juice (1000ml)',
       price: 1.99,
+      quantity: 1,
+    },
+    {
+      name: 'Carrot Juice (1000ml)',
+      price: 2.99,
+      quantity: 1,
     }
   ],
   deliverySpeed: deliverySpeed.fastDelivery,
