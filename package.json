@@ -1,0 +1,26 @@
+{
+  "name": "salary-hero-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:open": "npx playwright test --headed",
+    "test:debug": "npx playwright test --debug"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taohuh/salary-hero-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taohuh/salary-hero-test/issues"
+  },
+  "homepage": "https://github.com/taohuh/salary-hero-test#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.32.1",
+    "dotenv": "^16.0.3"
+  }
+}
