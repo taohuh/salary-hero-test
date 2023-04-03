@@ -44,7 +44,7 @@ test.describe('OWASP juice shop page', () => {
   })
 
   // 1. Login with your user, add 1 item to the basket, click on checkout, add a new address, fill in the address form, click on submit
-  test('Verify that user able to buy 1 product successfully', async () => {
+  test('Verify that user able to add 1 product to basket and create new address successfully', async () => {
     const addedProduct = userA.addedProducts[0]
 
     await test.step('Add 1 product to basket', async () => {
@@ -67,7 +67,7 @@ test.describe('OWASP juice shop page', () => {
   })
 
   // 2. Exact same flow, but this time, add 2 items to your basket, click on checkout, add a new address, fill in the address form, click on submit
-  test('Verify that user able to buy 2 products successfully', async () => {
+  test('Verify that user able to add 2 products to basket and create new address successfully', async () => {
     const firstAddedProduct = userA.addedProducts[1]
     const secondAddedProduct = userA.addedProducts[2]
 
