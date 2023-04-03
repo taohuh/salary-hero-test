@@ -22,6 +22,10 @@ export class NavigationBarComponent {
     ])
 
     await expect(this.page).toHaveURL(url)
+
+    const response = await this.page.waitForResponse(response => response.url().includes('/rest/basket/') && response.status() === 200);
+    const responseBody = await response.json()
+    expect(responseBody.status).toBe('success')
   }
 
   async searchProductByKeyword(keyword: string) {

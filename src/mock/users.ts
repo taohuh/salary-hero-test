@@ -14,6 +14,11 @@ export const userA = {
       name: 'Carrot Juice (1000ml)',
       price: 2.99,
       quantity: 1,
+    },
+    {
+      name: 'Banana Juice (1000ml)',
+      price: 1.99,
+      quantity: 1,
     }
   ],
   deliverySpeed: deliverySpeed.fastDelivery,

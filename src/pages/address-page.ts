@@ -50,9 +50,4 @@ export class AddressPage {
   async verifyAddNewAddressSuccessfully(address: TAddress) {
     await this.snackbarComponent.verifySnackbarContent(`The address at ${address.city} has been successfully added to your addresses.`)
   }
-
-  async selectAddress(addressName: string) {
-    await this.addressRow.filter({ hasText: addressName }).locator(this.radioButtonAddressRow).click()
-    await this.buttonProceedToPaymentSelection.click()
-  }
 }
