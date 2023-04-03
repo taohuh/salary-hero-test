@@ -34,7 +34,7 @@ export class SearchProductListPage {
     await expect(this.page).toHaveURL(url)
   }
 
-  async clickAddProductToCart(productName: string) {
+  async clickAddProductToBasket(productName: string) {
     await this.productCard.filter({ hasText: productName }).getByRole('button', { name: 'Add to Basket' }).click()
 
     const response = await this.page.waitForResponse(response => response.url().includes('/rest/basket/') && response.status() === 200);

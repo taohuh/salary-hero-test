@@ -3,10 +3,12 @@ import { expect, Locator, Page } from '@playwright/test'
 export class BasketPage {
   readonly page: Page
   readonly buttonCheckout: Locator
+  readonly iconDelete: Locator
 
   constructor(page: Page) {
     this.page = page
     this.buttonCheckout = page.getByRole('button', { name: 'Checkout' })
+    this.iconDelete = page.locator('.mat-column-remove > button')
   }
 
   async clickCheckoutButton() {
@@ -18,5 +20,13 @@ export class BasketPage {
     ])
 
     await expect(this.page).toHaveURL(url)
+  }
+
+  async deleteAllProductsFromBasket() {
+    const numberOfDeleteIcon = await this.iconDelete.count()
+
+    for (let index = 0; index < numberOfDeleteIcon; index++) {
+      await this.iconDelete.nth(index).click()
+    }
   }
 }
