@@ -22,3 +22,8 @@ Contact pimpakarn.wan@gmail.com for .env file
 ```
 npm run test
 ```
+
+### 5. Open playwright report (Optional)
+```
+npm run open:report
+```
